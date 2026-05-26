@@ -175,7 +175,7 @@
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
   /* ─── COUNTDOWN ───────────────────────────────────────── */
-  #countdown {
+  /* #countdown {
     background: linear-gradient(180deg, #0A0905 0%, #0E0D09 100%);
     position:relative; overflow:hidden;
   }
@@ -218,7 +218,262 @@
     color:rgba(201,168,76,0.3); align-self:flex-start; margin-top:40px;
     animation: blink 1.2s ease-in-out infinite;
   }
-  @keyframes blink { 0%,100%{opacity:0.3} 50%{opacity:1} }
+  @keyframes blink { 0%,100%{opacity:0.3} 50%{opacity:1} } */
+
+  /* ═════════ COUNTDOWN ═════════ */
+
+#countdown{
+  position:relative;
+  overflow:hidden;
+  background:
+  radial-gradient(circle at top,
+  rgba(201,168,76,0.08),
+  transparent 60%),
+  linear-gradient(180deg,#0A0905,#111008);
+}
+
+/* glowing background */
+#countdown::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+  radial-gradient(circle at center,
+  rgba(201,168,76,0.06),
+  transparent 70%);
+  animation:bgPulse 6s ease-in-out infinite;
+}
+
+@keyframes bgPulse{
+  0%,100%{
+    opacity:0.5;
+  }
+  50%{
+    opacity:1;
+  }
+}
+
+.countdown-grid{
+  position:relative;
+  z-index:2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:26px;
+  margin-top:70px;
+}
+
+.cd-card{
+  width:170px;
+  height:170px;
+  border-radius:26px;
+
+  background:
+  linear-gradient(
+  135deg,
+  rgba(255,255,255,0.05),
+  rgba(255,255,255,0.02)
+  );
+
+  border:1px solid rgba(201,168,76,0.16);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  position:relative;
+  overflow:hidden;
+
+  backdrop-filter:blur(18px);
+
+  transition:
+  transform 0.5s ease,
+  border-color 0.5s ease,
+  box-shadow 0.5s ease;
+}
+
+/* hover glow */
+.cd-card:hover{
+  transform:
+  translateY(-10px)
+  scale(1.04);
+
+  border-color:
+  rgba(201,168,76,0.45);
+
+  box-shadow:
+  0 0 60px rgba(201,168,76,0.15),
+  0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* top shine line */
+.cd-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:1px;
+
+  background:
+  linear-gradient(
+  to right,
+  transparent,
+  rgba(201,168,76,0.7),
+  transparent
+  );
+}
+
+/* animated glass glow */
+.cd-card::after{
+  content:'';
+  position:absolute;
+  width:220%;
+  height:220%;
+  background:
+  linear-gradient(
+  135deg,
+  transparent,
+  rgba(255,255,255,0.04),
+  transparent
+  );
+
+  transform:rotate(25deg);
+  animation:glassMove 8s linear infinite;
+}
+
+@keyframes glassMove{
+  0%{
+    left:-180%;
+    top:-180%;
+  }
+
+  100%{
+    left:100%;
+    top:100%;
+  }
+}
+
+.cd-num{
+  font-family:'Cormorant Garamond', serif;
+  font-size:74px;
+  line-height:1;
+  color:#E4C97E;
+
+  text-shadow:
+  0 0 20px rgba(201,168,76,0.35);
+
+  animation:numberGlow 2s ease-in-out infinite;
+}
+
+@keyframes numberGlow{
+  0%,100%{
+    text-shadow:
+    0 0 20px rgba(201,168,76,0.25);
+  }
+
+  50%{
+    text-shadow:
+    0 0 35px rgba(201,168,76,0.55);
+  }
+}
+
+.cd-label{
+  margin-top:14px;
+
+  font-family:'Cinzel', serif;
+  font-size:10px;
+
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+
+  color:rgba(255,255,255,0.55);
+}
+
+.cd-colon{
+  font-size:62px;
+  color:rgba(201,168,76,0.35);
+
+  margin-top:-12px;
+
+  animation:colonBlink 1.2s infinite;
+}
+
+@keyframes colonBlink{
+  0%,100%{
+    opacity:0.3;
+  }
+
+  50%{
+    opacity:1;
+  }
+}
+
+.countdown-note{
+  margin-top:55px;
+
+  text-align:center;
+
+  font-family:'Cormorant Garamond', serif;
+  font-size:22px;
+
+  color:rgba(255,255,255,0.7);
+
+  letter-spacing:0.08em;
+
+  animation:textPulse 2.5s infinite;
+}
+
+@keyframes textPulse{
+  0%,100%{
+    opacity:0.6;
+  }
+
+  50%{
+    opacity:1;
+  }
+}
+
+/* urgent effect */
+@keyframes pulseCard{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.05);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+/* mobile */
+@media(max-width:768px){
+
+  .countdown-grid{
+    gap:18px;
+  }
+
+  .cd-card{
+    width:130px;
+    height:130px;
+  }
+
+  .cd-num{
+    font-size:52px;
+  }
+
+  .cd-colon{
+    display:none;
+  }
+
+}
 
   /* ─── MEMORY LANE ─────────────────────────────────────── */
   #memory {
@@ -543,7 +798,7 @@
 </section>
 
 <!-- ═══ COUNTDOWN ═══════════════════════════════════════════════ -->
-<section id="countdown">
+<!-- <section id="countdown">
   <div class="section-header">
     <span class="section-label reveal">Until We Say Alvida</span>
     <h2 class="section-title reveal reveal-delay-1">The <em>Moment</em> Awaits</h2>
@@ -559,8 +814,55 @@
     <div class="cd-colon">:</div>
     <div class="cd-card"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seconds</span></div>
   </div>
-</section>
+</section> -->
+<!-- ═════════ COUNTDOWN SECTION ═════════ -->
+<section id="countdown">
+  <div class="section-header">
+    <span class="section-label reveal">
+      Until We Say Alvida
+    </span>
 
+    <h2 class="section-title reveal reveal-delay-1">
+      The <em>Moment</em> Awaits
+    </h2>
+
+    <div class="hr-gold reveal reveal-delay-2"></div>
+  </div>
+
+  <div class="countdown-grid reveal reveal-delay-2">
+
+    <div class="cd-card">
+      <span class="cd-num" id="cd-days">00</span>
+      <span class="cd-label">Days</span>
+    </div>
+
+    <div class="cd-colon">:</div>
+
+    <div class="cd-card">
+      <span class="cd-num" id="cd-hours">00</span>
+      <span class="cd-label">Hours</span>
+    </div>
+
+    <div class="cd-colon">:</div>
+
+    <div class="cd-card">
+      <span class="cd-num" id="cd-mins">00</span>
+      <span class="cd-label">Minutes</span>
+    </div>
+
+    <div class="cd-colon">:</div>
+
+    <div class="cd-card">
+      <span class="cd-num" id="cd-secs">00</span>
+      <span class="cd-label">Seconds</span>
+    </div>
+
+  </div>
+
+  <p class="countdown-note" id="countdown-note">
+    One Last Evening Together ✦
+  </p>
+</section>
 <!-- ═══ MEMORY LANE ══════════════════════════════════════════════ -->
 <section id="memory">
   <div class="section-header">
@@ -827,17 +1129,114 @@ document.querySelectorAll('a,button,.cd-card,.detail-card,.photo-card').forEach(
 })();
 
 /* ── COUNTDOWN ───────────────────────────────────────── */
-const target = new Date('2025-06-28T18:30:00');
+
+const target =
+new Date('2026-06-04T18:30:00');
+
+const cards =
+document.querySelectorAll('.cd-card');
+
 function updateCD(){
-  const now=new Date(), diff=target-now;
-  if(diff<=0){ document.querySelector('.countdown-grid').innerHTML='<p style="font-family:Cormorant Garamond,serif;font-size:28px;color:#C9A84C;text-align:center;letter-spacing:0.1em;">The Evening Has Arrived ✦</p>'; return; }
-  const d=Math.floor(diff/864e5), h=Math.floor(diff%864e5/36e5), m=Math.floor(diff%36e5/6e4), s=Math.floor(diff%6e4/1e3);
-  document.getElementById('cd-days').textContent=String(d).padStart(2,'0');
-  document.getElementById('cd-hours').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-mins').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-secs').textContent=String(s).padStart(2,'0');
+
+  const now = new Date();
+
+  const diff = target - now;
+
+  /* EVENT STARTED */
+  if(diff <= 0){
+
+    document.querySelector(
+    '.countdown-grid'
+    ).innerHTML = `
+
+      <div style="
+      font-family:'Cormorant Garamond',serif;
+      font-size:70px;
+      color:#E4C97E;
+      text-align:center;
+      animation:eventGlow 2s infinite;
+      ">
+      TONIGHT ✦
+      </div>
+
+    `;
+
+    document.getElementById(
+    'countdown-note'
+    ).innerHTML =
+    "The Evening Has Arrived";
+
+    return;
+  }
+
+  const d =
+  Math.floor(diff / 86400000);
+
+  const h =
+  Math.floor(
+  (diff % 86400000) / 3600000
+  );
+
+  const m =
+  Math.floor(
+  (diff % 3600000) / 60000
+  );
+
+  const s =
+  Math.floor(
+  (diff % 60000) / 1000
+  );
+
+  document.getElementById(
+  'cd-days'
+  ).textContent =
+  String(d).padStart(2,'0');
+
+  document.getElementById(
+  'cd-hours'
+  ).textContent =
+  String(h).padStart(2,'0');
+
+  document.getElementById(
+  'cd-mins'
+  ).textContent =
+  String(m).padStart(2,'0');
+
+  document.getElementById(
+  'cd-secs'
+  ).textContent =
+  String(s).padStart(2,'0');
+
+  /* FINAL 7 DAYS */
+  if(diff < 7 * 24 * 60 * 60 * 1000){
+
+    cards.forEach(card=>{
+
+      card.style.boxShadow =
+      '0 0 50px rgba(201,168,76,0.18)';
+
+    });
+
+  }
+
+  /* FINAL 24 HOURS */
+  if(diff < 24 * 60 * 60 * 1000){
+
+    cards.forEach(card=>{
+
+      card.style.animation =
+      'pulseCard 1.2s infinite';
+
+    });
+
+  }
+
 }
-updateCD(); setInterval(updateCD,1000);
+
+updateCD();
+
+setInterval(updateCD,1000);
+
 
 /* ── GALLERY ─────────────────────────────────────────── */
 const galleryData = [
